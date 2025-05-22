@@ -36,5 +36,4 @@ jobs:
           sam deploy --no-confirm-changeset --no-fail-on-empty-changeset \
             --stack-name news-aggregator-lambda \
             --capabilities CAPABILITY_IAM \
-            --region ${{ secrets.AWS_REGION }} \
-            --parameter-overrides CURRENTS_API_KEY=${{ secrets.CURRENTS_API_KEY }}
+            --region ${{ secrets.AWS_REGION }}
