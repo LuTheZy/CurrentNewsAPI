@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: News Aggregator Lambda
+
+Resources:
+  NewsAggregatorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: NewsAggregatorLambda::CurrentNewsAPI.Functions.NewsAggregatorFunction::FunctionHandler
+      Runtime: dotnet8
+      CodeUri: ./src
+      MemorySize: 256
+      Timeout: 30
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - secretsmanager:GetSecretValue
+              Resource: !Sub 'arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:currents/news/api-*'
+      Events:
+        GetNews:
+          Type: Api
+          Properties:
+            Path: /news
+            Method: get
