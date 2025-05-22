@@ -57,3 +57,4 @@ nunit-*.xml
 .aws-sam/
 .vs/
 .vscode/
+cursorrules.yaml
